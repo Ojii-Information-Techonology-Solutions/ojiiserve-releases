@@ -54,7 +54,7 @@ Install [Termux](https://f-droid.org/en/packages/com.termux/) from F-Droid (not 
 
 ```bash
 pkg update && pkg upgrade
-curl -fsSL -o ojiiserve https://github.com/Ojii-Information-Techonology-Solutions/ojiiserve-binary-releases/releases/latest/download/ojiiserve-linux-arm64
+curl -fsSL -o ojiiserve https://github.com/Ojii-Information-Techonology-Solutions/ojiiserve-releases/releases/download/v1.0.1/ojiiserve-linux-arm64
 chmod +x ojiiserve
 ./ojiiserve
 ```
