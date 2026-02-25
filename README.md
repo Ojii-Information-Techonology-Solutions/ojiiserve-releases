@@ -4,48 +4,85 @@ A self-hosted LibSQL database manager with a web dashboard, Cloudflare Tunnel in
 
 Run it on any machine — your Mac, an old PC, a Raspberry Pi, or an Android phone via Termux. Manage everything from a mobile browser.
 
-## Quick Start
+## Install
 
-**1. Download the binary for your platform:**
+### macOS (PKG installer)
+
+Download the `.pkg` for your architecture and double-click to install. It will prompt for your password and install `ojiiserve` to `/usr/local/bin/`.
+
+| File | Architecture |
+|------|-------------|
+| `ojiiserve-{ver}-darwin-arm64.pkg` | Apple Silicon (M1/M2/M3/M4) |
+| `ojiiserve-{ver}-darwin-x64.pkg` | Intel |
+
+Or install via terminal:
+
+```bash
+# Apple Silicon
+curl -fsSL -o ojiiserve.pkg https://github.com/Ojii-Information-Techonology-Solutions/ojiiserve-releases/releases/latest/download/ojiiserve-VERSION-darwin-arm64.pkg
+sudo installer -pkg ojiiserve.pkg -target /
+
+# Intel
+curl -fsSL -o ojiiserve.pkg https://github.com/Ojii-Information-Techonology-Solutions/ojiiserve-releases/releases/latest/download/ojiiserve-VERSION-darwin-x64.pkg
+sudo installer -pkg ojiiserve.pkg -target /
+```
+
+Then run:
+
+```bash
+ojiiserve
+```
+
+### Debian / Ubuntu (DEB)
+
+```bash
+# x64
+curl -fsSL -o ojiiserve.deb https://github.com/Ojii-Information-Techonology-Solutions/ojiiserve-releases/releases/latest/download/ojiiserve_VERSION_amd64.deb
+sudo dpkg -i ojiiserve.deb
+
+# ARM64 (Raspberry Pi, etc.)
+curl -fsSL -o ojiiserve.deb https://github.com/Ojii-Information-Techonology-Solutions/ojiiserve-releases/releases/latest/download/ojiiserve_VERSION_arm64.deb
+sudo dpkg -i ojiiserve.deb
+```
+
+Then run:
+
+```bash
+ojiiserve
+```
+
+### CentOS / Fedora (RPM)
+
+```bash
+# x64
+curl -fsSL -o ojiiserve.rpm https://github.com/Ojii-Information-Techonology-Solutions/ojiiserve-releases/releases/latest/download/ojiiserve-VERSION-1.x86_64.rpm
+sudo rpm -i ojiiserve.rpm
+
+# ARM64
+curl -fsSL -o ojiiserve.rpm https://github.com/Ojii-Information-Techonology-Solutions/ojiiserve-releases/releases/latest/download/ojiiserve-VERSION-1.aarch64.rpm
+sudo rpm -i ojiiserve.rpm
+```
+
+Then run:
+
+```bash
+ojiiserve
+```
+
+### Raw binary (any platform)
+
+If you prefer not to use an installer, download the binary directly:
 
 | Binary | Platform |
 |--------|----------|
-| `ojiiserve-darwin-arm64` | macOS Apple Silicon (M1/M2/M3/M4) |
+| `ojiiserve-darwin-arm64` | macOS Apple Silicon |
 | `ojiiserve-darwin-x64` | macOS Intel |
-| `ojiiserve-linux-arm64` | Linux ARM64 (Android/Termux, Raspberry Pi) |
-| `ojiiserve-linux-x64` | Linux x64 (old PCs, servers, VPS) |
-
-**2. Make it executable and run:**
+| `ojiiserve-linux-arm64` | Linux ARM64 (Raspberry Pi, Termux) |
+| `ojiiserve-linux-x64` | Linux x64 (servers, VPS, old PCs) |
 
 ```bash
 chmod +x ojiiserve-*
-./ojiiserve-linux-arm64  # replace with your platform binary
-```
-
-**3. Open the dashboard:**
-
-Visit `http://localhost:9000` in your browser. The setup wizard will walk you through naming your node, downloading dependencies, and registering your admin passkey.
-
----
-
-## Platform Guides
-
-### macOS (Apple Silicon)
-
-```bash
-curl -fsSL -o ojiiserve https://github.com/Ojii-Information-Techonology-Solutions/ojiiserve-binary-releases/releases/latest/download/ojiiserve-darwin-arm64
-chmod +x ojiiserve
-./ojiiserve
-```
-
-Open `http://localhost:9000` in Safari or Chrome.
-
-### macOS (Intel)
-
-```bash
-curl -fsSL -o ojiiserve https://github.com/Ojii-Information-Techonology-Solutions/ojiiserve-binary-releases/releases/latest/download/ojiiserve-darwin-x64
-chmod +x ojiiserve
-./ojiiserve
+./ojiiserve-linux-x64  # replace with your platform
 ```
 
 ### Android (Termux)
@@ -54,7 +91,7 @@ Install [Termux](https://f-droid.org/en/packages/com.termux/) from F-Droid (not 
 
 ```bash
 pkg update && pkg upgrade
-curl -fsSL -o ojiiserve https://github.com/Ojii-Information-Techonology-Solutions/ojiiserve-releases/releases/download/v1.0.1/ojiiserve-linux-arm64
+curl -fsSL -o ojiiserve https://github.com/Ojii-Information-Techonology-Solutions/ojiiserve-releases/releases/latest/download/ojiiserve-linux-arm64
 chmod +x ojiiserve
 ./ojiiserve
 ```
@@ -63,21 +100,15 @@ Open Chrome on the same phone and go to `http://localhost:9000`.
 
 > **Tip:** To keep Ojii Serve running in the background, use `termux-wake-lock` before starting, or run with `nohup ./ojiiserve &`.
 
-### Linux x64 (Old PCs, Servers, VPS)
+---
 
-```bash
-curl -fsSL -o ojiiserve https://github.com/Ojii-Information-Techonology-Solutions/ojiiserve-binary-releases/releases/latest/download/ojiiserve-linux-x64
-chmod +x ojiiserve
-./ojiiserve
-```
+## Quick Start
 
-### Raspberry Pi / Linux ARM64
+**1.** Install using one of the methods above.
 
-```bash
-curl -fsSL -o ojiiserve https://github.com/Ojii-Information-Techonology-Solutions/ojiiserve-binary-releases/releases/latest/download/ojiiserve-linux-arm64
-chmod +x ojiiserve
-./ojiiserve
-```
+**2.** Run `ojiiserve` (or `./ojiiserve` for raw binary).
+
+**3.** Open `http://localhost:9000` in your browser. The setup wizard will walk you through naming your node, downloading dependencies, and registering your admin passkey.
 
 ---
 
@@ -104,19 +135,15 @@ On the same local network, find your machine's IP and visit `http://<ip>:9000`.
 
 For internet access, configure a Cloudflare Tunnel from the dashboard — no port forwarding needed.
 
+---
+
 ## Running as a Service
 
 ### Linux (systemd)
 
 For servers, old PCs, and Raspberry Pi — start on boot and auto-restart on crash.
 
-**1. Move the binary to a system location:**
-
-```bash
-sudo mv ojiiserve /usr/local/bin/ojiiserve
-```
-
-**2. Create the service file:**
+**1. Create the service file:**
 
 ```bash
 sudo tee /etc/systemd/system/ojiiserve.service > /dev/null << 'EOF'
@@ -139,7 +166,7 @@ EOF
 
 Replace `YOUR_USERNAME` with the user that ran the initial setup (the one whose `~/.ojiiserve/` has the data).
 
-**3. Enable and start:**
+**2. Enable and start:**
 
 ```bash
 sudo systemctl daemon-reload
@@ -240,9 +267,28 @@ All configuration, databases, and keys are stored in:
 
 ## Uninstall
 
-Stop the process and remove the data directory:
+### If installed via .pkg / .deb / .rpm
+
+```bash
+# macOS
+sudo rm /usr/local/bin/ojiiserve
+sudo pkgutil --forget com.ojii.ojiiserve
+
+# Debian/Ubuntu
+sudo dpkg -r ojiiserve
+
+# CentOS/Fedora
+sudo rpm -e ojiiserve
+```
+
+### Raw binary
+
+```bash
+rm ojiiserve
+```
+
+### Remove data
 
 ```bash
 rm -rf ~/.ojiiserve
-rm ojiiserve
 ```
